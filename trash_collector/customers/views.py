@@ -77,6 +77,21 @@ def suspend(request):
         return render(request, 'customers/suspend.html', context)
 
 
+def pickup(request):
+    if request.method == 'POST':
+        user = request.user
+        customer_pickup = Customer.objects.get(user=user)
+        customer_pickup.one_time_pickup = request.POST.get('one_time_pickup')
+        customer_pickup.save()
+        return HttpResponseRedirect(reverse('customers:details'))
+    else:
+        user = request.user
+        customer_pickup_date = Customer.objects.get(user=user)
+        context = {
+            'customer': customer_pickup_date
+        }
+        return render(request, 'customers/pickup.html', context)
+
 # def activate(request):
 #     user = request.user
 #     customer_activate = Customer.objects.get(user=user)

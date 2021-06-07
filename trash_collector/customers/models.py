@@ -24,4 +24,10 @@ class Customer(models.Model):
         else:
             return False
 
+    def pickup(self):
+        if self.one_time_pickup == datetime.date.today():
+            return True
+        else:
+            return False
+
 

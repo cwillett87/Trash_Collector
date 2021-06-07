@@ -20,7 +20,12 @@
   <h2>Temporarily suspend your account</h2>
   <h2>Account Status: Suspended!</h2>
   <h3>Your account is currently suspended from {{customer.suspension_start}} to {{customer.suspension_end}}!</h3>
-
+{% endif %}
+{% if customer.pickup == True %}
+  <h2>Request a one time pickup</h2>
+  <button> <a href="{% url 'customers:pickup' %}">Schedule</a></button>
+{% else %}
+   <h3>You have a One time pickup scheduled on {{customer.one_time_pickup}}!</h3>
 {% endif %}
 {% endblock %}
 
