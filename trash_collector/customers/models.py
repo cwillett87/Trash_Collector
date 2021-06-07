@@ -15,3 +15,11 @@ class Customer(models.Model):
     one_time_pickup = models.DateField(default=datetime.date.today())
     suspension_start = models.DateField(default=datetime.date.today())
     suspension_end = models.DateField(default=datetime.date.today())
+
+    def activate(self):
+        if self.suspension_end == datetime.date.today():
+            return True
+        else:
+            return False
+
+

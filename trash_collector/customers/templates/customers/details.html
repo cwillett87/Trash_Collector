@@ -9,5 +9,16 @@
   <h2>Name: {{customer.name}}!</h2>
   <h2>Address: {{customer.address}}!</h2>
   <h2>Zip Code: {{customer.zip_code}}!</h2>
-  <h2>{{user.name}} Currently the trash is being picked up on{{customer.pickup_day}}'s!</h2>
+  <h2>{{customer.name}}, currently your trash is being picked up on {{customer.pickup_day}}'s!</h2>
+  <button> <a href="{% url 'customers:edit' %}">Edit</a></button>
+  {% if customer.activate == True %}
+  <h2>Account Status: Active!</h2>
+  <button> <a href="{% url 'customers:suspend' %}">Suspend Account</a></button>
+  {% else %}
+  <h2>Temporarily suspend your account</h2>
+  <h2>Account Status: Suspended!</h2>
+  <h3>Your account is currently suspended from {{customer.suspension_start}} to {{customer.suspension_end}}!</h3>
+
+{% endif %}
 {% endblock %}
+

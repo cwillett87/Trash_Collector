@@ -27,7 +27,7 @@ def create(request):
         zip_code = request.POST.get('zip_code')
         new_customer = Customer(name=name, user=user,  pickup_day=pickup_day, address=address, zip_code=zip_code)
         new_customer.save()
-        return HttpResponseRedirect(reverse('customers:index'))
+        return HttpResponseRedirect(reverse('customers:details'))
     else:
         return render(request, 'customers/create.html')
 
@@ -39,3 +39,53 @@ def details(request):
         'customer': customer
     }
     return render(request, 'customers/details.html', context)
+
+
+def edit(request):
+    if request.method == 'POST':
+        user = request.user
+        customer_edit = Customer.objects.get(user=user)
+        customer_edit.name = request.POST.get('name')
+        customer_edit.pickup_day = request.POST.get('pickup_day')
+        customer_edit.address = request.POST.get('address')
+        customer_edit.zip_code = request.POST.get('zip_code')
+        customer_edit.save()
+        return HttpResponseRedirect(reverse('customers:details'))
+    else:
+        user = request.user
+        customer_edit = Customer.objects.get(user=user)
+        context = {
+            'customer': customer_edit
+        }
+        return render(request, 'customers/edit.html', context)
+
+
+def suspend(request):
+    if request.method == 'POST':
+        user = request.user
+        customer_suspend = Customer.objects.get(user=user)
+        customer_suspend.suspension_start = request.POST.get('suspension_start')
+        customer_suspend.suspension_end = request.POST.get('suspension_end')
+        customer_suspend.save()
+        return HttpResponseRedirect(reverse('customers:details'))
+    else:
+        user = request.user
+        customer_suspend_date = Customer.objects.get(user=user)
+        context = {
+            'customer': customer_suspend_date
+        }
+        return render(request, 'customers/suspend.html', context)
+
+
+# def activate(request):
+#     user = request.user
+#     customer_activate = Customer.objects.get(user=user)
+#     context = {
+#         'customer': customer_activate
+#     }
+#     if request.method == 'POST':
+#         customer_activate.suspension_start.delete()
+#         customer_activate.suspension_end.delete()
+#         return HttpResponseRedirect(reverse('customers:details'))
+#     else:
+#         return render(request, 'customers/activate.html', context)
