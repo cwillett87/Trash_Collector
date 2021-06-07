@@ -21,18 +21,20 @@ def index(request):
 def create(request):
     if request.method == 'POST':
         name = request.POST.get('name')
+        user = request.user
         pickup_day = request.POST.get('pickup_day')
         address = request.POST.get('address')
         zip_code = request.POST.get('zip_code')
-        new_customer = Customer(name=name, pickup_day=pickup_day, address=address, zip_code=zip_code)
+        new_customer = Customer(name=name, user=user,  pickup_day=pickup_day, address=address, zip_code=zip_code)
         new_customer.save()
         return HttpResponseRedirect(reverse('customers:index'))
     else:
         return render(request, 'customers/create.html')
 
 
-def details(request, customer_id):
-    customer = Customer.objects.get(id=customer_id)
+def details(request):
+    user = request.user
+    customer = Customer.objects.get(user=user)
     context = {
         'customer': customer
     }
