@@ -3,12 +3,14 @@
 
 {% block title %} Customer Account {% endblock %}
 
-{% block header %} {{ user.username }}'s Account Information {% endblock %}
+{% block header %} {{ user.username }}'s Profile {% endblock %}
 
 {% block content %}
-  <h2>Name: {{customer.name}}!</h2>
-  <h2>Address: {{customer.address}}!</h2>
-  <h2>Zip Code: {{customer.zip_code}}!</h2>
+  <h1>Account Information</h1>
+  <h1>Balance Due: ${{customer.balance}}.00</h1>
+  <h2>Name: {{customer.name}}</h2>
+  <h2>Address: {{customer.address}}</h2>
+  <h2>Zip Code: {{customer.zip_code}}</h2>
   <h2>{{customer.name}}, currently your trash is being picked up on {{customer.pickup_day}}'s!</h2>
   <button> <a href="{% url 'customers:edit' %}">Edit</a></button>
   {% if customer.activate == True %}
