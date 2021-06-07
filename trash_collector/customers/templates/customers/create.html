@@ -11,6 +11,7 @@
     <form action="{% url 'customers:create' %}" method="post">
         {% csrf_token %}
         <h1>Name:<input type="text" name="name" id="name"><br></h1>
+        <h1>pickup_day:<input type="text" name="pickup_day" id="pickup_day"><br></h1>
         <h1>Address:<input type="text" name="address" id="address"><br></h1>
         <h1>Zip Code:<input type="text" name="zip_code" id="zip_code"><br></h1>
         <h1><input type="submit" value="Sign up"></h1>
