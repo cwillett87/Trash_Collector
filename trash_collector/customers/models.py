@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 # Create your models here.
 
@@ -10,5 +12,5 @@ class Customer(models.Model):
     address = models.CharField(max_length=50)
     zip_code = models.CharField(max_length=50)
     balance = models.IntegerField(default=0)
-    suspension_start = models.DateField()
-    suspension_end = models.DateField()
+    suspension_start = models.DateField(default=datetime.date.today())
+    suspension_end = models.DateField(default=datetime.date.today())
