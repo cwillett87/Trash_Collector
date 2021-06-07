@@ -25,7 +25,7 @@ def create(request):
         pickup_day = request.POST.get('pickup_day')
         address = request.POST.get('address')
         zip_code = request.POST.get('zip_code')
-        new_customer = Customer(name=name, user=user, pickup_day=pickup_day, address=address, zip_code=zip_code)
+        new_customer = Customer(name=name, user=user,  pickup_day=pickup_day, address=address, zip_code=zip_code)
         new_customer.save()
         return HttpResponseRedirect(reverse('customers:index'))
     else:
