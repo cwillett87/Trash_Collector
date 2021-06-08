@@ -29,5 +29,3 @@ class Customer(models.Model):
             return True
         else:
             return False
-
-

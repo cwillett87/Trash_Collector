@@ -1,6 +1,8 @@
-from django.http import HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.apps import apps
+from .models import Employee
+from django.urls import reverse
 
 # Create your views here.
 
@@ -8,6 +10,18 @@ from django.apps import apps
 
 
 def index(request):
+    user = request.user
+    if request.method == 'POST':
+        zip_code = request.POST.get('zip_code')
+        new_employee = Employee(name=user.username, user=user, zip_code=zip_code)
+        new_employee.save()
+        return HttpResponseRedirect(reverse('employees:index'))
     # This line will get the Customer model from the other app, it can now be used to query the db
-    Customer = apps.get_model('customers.Customer')
-    return render(request, 'employees/index.html')
+    else:
+        # Customer = apps.get_model('customers.Customer')
+        # customer = Customer.objects.values('zip_code')
+        # context = {
+        #     'customer': customer
+        # }
+        return render(request, 'employees/index.html')
+

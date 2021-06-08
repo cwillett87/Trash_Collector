@@ -92,6 +92,11 @@ def pickup(request):
         }
         return render(request, 'customers/pickup.html', context)
 
+
+# def redirect():
+#     return HttpResponseRedirect(reverse('customers:details'))
+
+
 # def activate(request):
 #     user = request.user
 #     customer_activate = Customer.objects.get(user=user)
