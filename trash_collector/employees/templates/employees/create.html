@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %} Set Zip Code {% endblock %}
+
+{% block content %}
+  {% if user.is_authenticated %}
+<h2>{{ user.username }}, you have set your Zip Code to {{employee.zip_code}}</h2>
+<form action="{% url 'employees:zip_code' %}" method="post">
+        {% csrf_token %}
+        <h4>Zip Code:<input type="text" name="zip_code" id="zip_code"><br></h4>
+        <h6><input type="submit" value="Submit"></h6>
+        </form>
+{% endif %}
+{% endblock %}

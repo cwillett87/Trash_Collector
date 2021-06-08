@@ -1,15 +1,33 @@
 {% extends 'base.html' %}
 
-{% block title %}{% block header %} Employee Home {% endblock %}{% endblock %}
+{% block title %} Employee Home {% endblock %}
 
 {% block content %}
   {% if user.is_authenticated %}
-<h2>Hello Employee {{ user.username }}!</h2>
-    <form action="{% url 'employees:index' %}" method="post">
-        {% csrf_token %}
-        <h4>Zip Code:<input type="text" name="zip_code" id="zip_code"><br></h4>
-        <h6><input type="submit" value="Submit"></h6>
-    </form>
+<h1>Welcome {{ user.username }}!</h1>
+    <h2>Set the zip code to view customers</h2>
+    <a href="{% url 'employees:create' %}">Set Zip Code</a>
+<h5>Customer pickup schedule for today</h5>
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Address</th>
+        <th>Zip Code</th>
+        <th>Pickup Day</th>
+        <th>Suspension End</th>
+        <th>One Time Pickup</th>
+    </tr>
+    {% for customer in customer_pickup %}
+    <tr>
+        <td>{{ customer.name }}</td>
+        <td>{{ customer.address }}</td>
+        <td>{{ customer.zip_code }}</td>
+        <td>{{ customer.pickup_day }}</td>
+        <td>{{ customer.suspension_end  }}</td>
+        <td>{{ customer.one_time_pickup }}</td>
+    </tr>
+    {% endfor %}
+</table>
   {% else %}
     <p>You are at the employee index, but you are not logged in.</p>
     <a href="{% url 'login' %}">Log In</a>
