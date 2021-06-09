@@ -14,18 +14,18 @@ class Customer(models.Model):
     address = models.CharField(max_length=50)
     zip_code = models.CharField(max_length=50)
     balance = models.IntegerField(default=0)
-    one_time_pickup = models.DateField(default=datetime.date.today())
-    suspension_start = models.DateField(default=datetime.date.today())
-    suspension_end = models.DateField(default=datetime.date.today())
+    one_time_pickup = models.DateField(blank=True, null=True)
+    suspension_start = models.DateField(blank=True, null=True)
+    suspension_end = models.DateField(blank=True, null=True)
 
     def activate(self):
-        if self.suspension_end == datetime.date.today():
+        if self.suspension_end is None:
             return True
         else:
             return False
 
     def pickup(self):
-        if self.one_time_pickup == datetime.date.today():
+        if self.one_time_pickup is None:
             return True
         else:
             return False
