@@ -138,13 +138,13 @@
 </table>
 <br>
 
-    <form action="{% url 'employees:my_view' %}" method="post">
+    <form  id="search" action="{% url 'employees:my_view' %}" method="post">
         {% csrf_token %}
         <h4>Pickup Day:<input type="text" name="pickup_day" id="pickup_day"></h4>
         <h4><input type="submit" value="Submit"></h4>
     </form>
 {% if customer_pickup_filter is not None %}
- <table id="search" class="table table-dark table-bordered">
+ <table class="table table-dark table-bordered">
     <h5>Customers scheduled for pickups on {{ pickup_day }}'s</h5>
      <tr>
         <th>Name</th>
