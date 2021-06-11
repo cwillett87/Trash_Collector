@@ -4,12 +4,16 @@
 {% block title %} Customer {% endblock %}
 
 {% block content %}
+<br>
+<br>
+<br>
   {% if user.is_authenticated %}
-<h1>Welcome {{ user.username }}, </h1>
-        <h1>please sign up!</h1>
-        <a href="{% url 'customers:create' %}">Sign Up</a>
+<div class="block2">
+<h1>Welcome {{ user.username }}, please sign up!</h1>
+        <button><a href="{% url 'customers:create' %}">Sign Up</a></button>
         <h1>If you've already signed up, please continue!</h1>
-        <a href="{% url 'customers:details' %}">Continue</a>
+        <button><a href="{% url 'customers:details' %}">Continue</a></button>
+    </div>
   {% else %}
     <p>You are at the customer index, but you are not logged in.</p>
     <a href="{% url 'login' %}">Log In</a>

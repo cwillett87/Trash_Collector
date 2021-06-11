@@ -3,17 +3,20 @@
 
 {% block title %} Suspend Service {% endblock %}
 
-{% block header %} {{ user.username }}, please specify the dates you would like to suspend your service! {% endblock %}
-
 {% block content %}
+<br>
+<br>
+<br>
   {% if user.is_authenticated %}
-
-    <form action="{% url 'customers:suspend' %}" method="post">
+<div class="center5">
+<h1 class="create">{{ user.username }}, please specify the dates you would like to suspend your service!</h1>
+        <form class=" form2 " action="{% url 'customers:suspend' %}" method="post">
         {% csrf_token %}
-        <h1>Start Date:<input type="text" name="suspension_start" id="suspension_start" value="{{customer.suspension_start}}"><br></h1>
-        <h1>End Date:<input type="text" name="suspension_end" id="suspension_end" value="{{customer.suspension_end}}"><br></h1>
-        <h1><input type="submit" value="Schedule"></h1>
-    </form>
+            <h2>Start Date:  <input type="text" name="suspension_start" id="suspension_start" value="{{customer.suspension_start}}"><br></h2>
+            <h2>End Date:  <input type="text" name="suspension_end" id="suspension_end" value="{{customer.suspension_end}}"><br></h2>
+            <h2><input type="submit" value="Schedule"></h2>
+        </form>
+    </div>
 {% else %}
   {% endif %}
 {% endblock %}

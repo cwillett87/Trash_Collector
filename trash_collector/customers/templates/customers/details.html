@@ -3,29 +3,38 @@
 
 {% block title %} Customer Account {% endblock %}
 
-{% block header %} {{ user.username }}'s Profile {% endblock %}
-
 {% block content %}
-  <h1>Account Information</h1>
-  <h2>Balance Due: ${{customer.balance}}.00</h2>
-  <h2>Name: {{customer.name}}</h2>
-  <h2>Address: {{customer.address}}</h2>
-  <h2>Zip Code: {{customer.zip_code}}</h2>
-  <h2>{{customer.name}}, currently your trash is being picked up on {{customer.pickup_day}}'s!</h2>
-  <button> <a href="{% url 'customers:edit' %}">Edit</a></button>
-  {% if customer.activate == True %}
-  <h2>Account Status: Active!</h2>
-  <button> <a href="{% url 'customers:suspend' %}">Suspend Account</a></button>
-  {% else %}
+<br>
+<br>
+<br>
+<h1>{{ user.username }}'s Profile</h1>
+  <div class="create2">
+    <h1>Account Information</h1>
+    <h2>Balance Due: ${{customer.balance}}.00</h2>
+    <h2>Name: {{customer.name}}</h2>
+    <h2>Address: {{customer.address}}</h2>
+    <h2>Zip Code: {{customer.zip_code}}</h2>
+    <h2>Pickup Day: {{customer.pickup_day}}'s!</h2>
+    <button> <a href="{% url 'customers:edit' %}">Edit</a></button>
+  <br>
+    {% if customer.activate == True %}
+    <br>
+    <h2>Account Status: Active!</h2>
+    <button> <a href="{% url 'customers:suspend' %}">Suspend Account</a></button>
+    {% else %}
+    <br>
   <h2>Temporarily suspend your account</h2>
   <h2>Account Status: Suspended!</h2>
-  <h3>Your account is currently suspended from {{customer.suspension_start}} to {{customer.suspension_end}}!</h3>
+  <h2>Your account is currently suspended from {{customer.suspension_start}} to {{customer.suspension_end}}!</h2>
 {% endif %}
+    <br>
 {% if customer.pickup == True %}
-  <h2>Request a one time pickup</h2>
-  <button> <a href="{% url 'customers:pickup' %}">Schedule</a></button>
+    <br>
+    <h2>Request a one time pickup</h2>
+    <button> <a href="{% url 'customers:pickup' %}">Schedule</a></button>
 {% else %}
-   <h3>You have a One time pickup scheduled on {{customer.one_time_pickup}}!</h3>
+   <h2>You have a One time pickup scheduled on {{customer.one_time_pickup}}!</h2>
 {% endif %}
+    </div>
 {% endblock %}
 

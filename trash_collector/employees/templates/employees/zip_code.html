@@ -11,7 +11,8 @@
     <form class=" form container" action="{% url 'employees:zip_code' %}" method="post">
         {% csrf_token %}
         <div class="center2">
-            <h4>Zip Code:<input type="text" name="zip_code" id="zip_code"><br></h4>
+            <h6>Name:  <input type="text" name="name" id="name" value="{{employee.name}}"><br></h6>
+            <h6>Zip Code:<input type="text" name="zip_code" id="zip_code" value="{{employee.zip_code}}"><br></h6>
             <h6><input type="submit" value="Submit"></h6>
         </div>
     </form>

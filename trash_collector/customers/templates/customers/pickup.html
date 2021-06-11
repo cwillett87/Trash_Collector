@@ -3,15 +3,21 @@
 
 {% block title %} Request One Time Pickup Service {% endblock %}
 
-{% block header %} {{ user.username }}, please specify the date for your one time pickup service! {% endblock %}
+{% block header %}  {% endblock %}
 
 {% block content %}
+<br>
+<br>
+<br>
   {% if user.is_authenticated %}
-    <form action="{% url 'customers:pickup' %}" method="post">
+<div class="center5">
+<h1 class="create">{{ user.username }}, please specify the date for your one time pickup service!</h1>
+    <form class=" form2 container" action="{% url 'customers:pickup' %}" method="post">
         {% csrf_token %}
-        <h1>One time pickup Date:<input type="text" name="one_time_pickup" id="one_time_pickup" value="{{customer.one_time_pickup}}"><br></h1>
-        <h1><input type="submit" value="Submit"></h1>
+        <h1>One time pickup Date:  <input type="text" name="one_time_pickup" id="one_time_pickup" value="{{customer.one_time_pickup}}"><br></h1>
+        <h2><input type="submit" value="Submit"></h2>
     </form>
+    </div>
 {% else %}
   {% endif %}
 {% endblock %}

@@ -3,167 +3,32 @@
 {% block title %} Employee Home {% endblock %}
 
 {% block content %}
-
+ {% if user.is_authenticated %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <h1>Welcome {{ user.username }}!</h1>
-    <h2>Set the zip code to view customers</h2>
-    <a href="{% url 'employees:create' %}">Set Zip Code</a>
-
-<table>
-    <h5>Customers in assigned zip code</h5>
-    <tr>
-        <th>Name</th>
-        <th>Address</th>
-        <th>Zip Code</th>
-        <th>Pickup Day</th>
-        <th>Suspension End</th>
-        <th>One Time Pickup</th>
-        <th>Amount Due</th>
-    </tr>
-        {% for customer in customer_zip%}
-        <td>{{ customer.name }}</td>
-        <td>{{ customer.address }}</td>
-        <td>{{ customer.zip_code }}</td>
-        <td>{{ customer.pickup_day }}</td>
-        <td>{{ customer.suspension_end  }}</td>
-        <td>{{ customer.one_time_pickup }}</td>
-        <td>${{ customer.balance }}.00</td>
-    </tr>
-    {% endfor %}
-
-</table>
-<br>
-<table>
-    <h5>Customer pickup schedule for today</h5>
-    <tr>
-        <th>Name</th>
-        <th>Address</th>
-        <th>Zip Code</th>
-        <th>Pickup Day</th>
-        <th>Suspension End</th>
-        <th>Amount Due</th>
-        <th>(Click "Confirmed" to undo)</th>
-    </tr>
-
-    {% for customer in customer_pickup %}
-    {% if customer.balance is 0 %}
-    <tr>
-        <td>{{ customer.name }}</td>
-        <td>{{ customer.address }}</td>
-        <td>{{ customer.zip_code }}</td>
-        <td>{{ customer.pickup_day }}</td>
-        <td>{{ customer.suspension_end  }}</td>
-        <td>${{ customer.balance }}.00</td>
-        <td><button><a href="{% url 'employees:confirm' customer.id %}">Confirm</a></button></td>
-    </tr>
-    {% else %}
-    <tr>
-        <td>{{ customer.name }}</td>
-        <td>{{ customer.address }}</td>
-        <td>{{ customer.zip_code }}</td>
-        <td>{{ customer.pickup_day }}</td>
-        <td>{{ customer.suspension_end  }}</td>
-        <td>${{ customer.balance }}.00</td>
-        <td><button><a href="{% url 'employees:un_confirm' customer.id %}">Confirmed</a></button></td>
-    </tr>
-    {% endif %}
-    {% endfor %}
-
-</table>
-    <br>
-<table>
-    <h5>Customer one time pickup's schedule for today</h5>
-    <tr>
-        <th>Name</th>
-        <th>Address</th>
-        <th>Zip Code</th>
-        <th>Pickup Day</th>
-        <th>Suspension End</th>
-        <th>One Time Pickup</th>
-        <th>Amount Due</th>
-        <th>(Click "Confirmed" to undo)</th>
-    </tr>
-        {% for customer in customer_one_pickup %}
-        {% if customer.balance is 0 %}
-    <tr>
-        <td>{{ customer.name }}</td>
-        <td>{{ customer.address }}</td>
-        <td>{{ customer.zip_code }}</td>
-        <td>{{ customer.pickup_day }}</td>
-        <td>{{ customer.suspension_end  }}</td>
-        <td>{{ customer.one_time_pickup  }}</td>
-        <td>${{ customer.balance }}.00</td>
-        <td><button><a href="{% url 'employees:confirm' customer.id %}">Confirm</a></button></td>
-    </tr>
-    {% else %}
-    <tr>
-        <td>{{ customer.name }}</td>
-        <td>{{ customer.address }}</td>
-        <td>{{ customer.zip_code }}</td>
-        <td>{{ customer.pickup_day }}</td>
-        <td>{{ customer.suspension_end  }}</td>
-        <td>{{ customer.one_time_pickup  }}</td>
-        <td>${{ customer.balance }}.00</td>
-        <td><button><a href="{% url 'employees:un_confirm' customer.id %}">Confirmed</a></button></td>
-    </tr>
-    {% endif %}
-    {% endfor %}
-</table>
-<br>
-<table>
-    <h5>Active customer accounts</h5>
-    <tr>
-        <th>Name</th>
-        <th>Address</th>
-        <th>Zip Code</th>
-        <th>Pickup Day</th>
-        <th>Suspension End</th>
-        <th>One Time Pickup</th>
-        <th>Amount Due</th>
-    </tr>
-        {% for customer in customer_suspend_3 %}
-    <tr>
-        <td>{{ customer.name }}</td>
-        <td>{{ customer.address }}</td>
-        <td>{{ customer.zip_code }}</td>
-        <td>{{ customer.pickup_day }}</td>
-        <td>{{ customer.suspension_end  }}</td>
-        <td>{{ customer.one_time_pickup }}</td>
-        <td>${{ customer.balance }}.00</td>
-    </tr>
-    {% endfor %}
-</table>
-<br>
-
-    <form action="{% url 'employees:my_view' %}" method="post">
+<div class="center5">
+        <h1 class="create">Please sign up! </h1>
+    <form class=" form2 container" action="{% url 'employees:create' %}" method="post">
         {% csrf_token %}
-        <h4>Pickup Day:<input type="text" name="pickup_day" id="pickup_day"><br></h4>
-        <h6><input type="submit" value="Submit"></h6>
+        <h2>Name:  <input type="text" name="name" id="name"><br></h2>
+        <h2>Zip Code:  <input type="text" name="zip_code" id="zip_code"><br></h2>
+        <input type="submit" value="Sign up">
     </form>
-
- <table>
-{% if customer_pickup_filter is not None %}
-    <h5>Customers scheduled for pickups on {{ customer.pickup_day }}'s</h5>
-     <tr>
-        <th>Name</th>
-        <th>Address</th>
-        <th>Zip Code</th>
-        <th>Pickup Day</th>
-        <th>Suspension End</th>
-        <th>One Time Pickup</th>
-         <th>Amount Due</th>
-    </tr>
-        {% for customer in customer_pickup_filter%}
-        <td>{{ customer.name }}</td>
-        <td>{{ customer.address }}</td>
-        <td>{{ customer.zip_code }}</td>
-        <td>{{ customer.pickup_day }}</td>
-        <td>{{ customer.suspension_end  }}</td>
-        <td>{{ customer.one_time_pickup }}</td>
-        <td>${{ customer.balance }}.00</td>
-    </tr>
-    {% endfor %}
-</table>
-
-{% else %}
-{% endif %}
+    <div class="background2">
+        <h1>If you've already signed up, please continue!</h1>
+        <button><a href="{% url 'employees:my_view' %}">Continue</a></button>
+    </div>
+</div>
+        {% else %}
+    <p>You are at the customer index, but you are not logged in.</p>
+    <a href="{% url 'login' %}">Log In</a>
+    <a href="{% url 'accounts:register' %}">Sign Up</a>
+  {% endif %}
 {% endblock %}
